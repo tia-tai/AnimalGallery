@@ -5,8 +5,6 @@
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.effect.BoxBlur?>
-<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
@@ -14,8 +12,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+<HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.animalgallery.AnimalGalleryController">
    <children>
       <VBox prefHeight="400.0" prefWidth="183.0" style="-fx-background-color: #e1bf92;">
          <children>
@@ -24,33 +21,35 @@
                   <Font name="Noteworthy Bold" size="23.0" />
                </font>
             </Text>
-            <ScrollPane hbarPolicy="NEVER" hmax="0.0" prefHeight="363.0" prefWidth="184.0" vbarPolicy="ALWAYS" vmax="200.0">
+            <ScrollPane hbarPolicy="NEVER" hmax="0.0" prefHeight="573.0" prefWidth="184.0" vbarPolicy="ALWAYS" vmax="200.0">
                <content>
                   <VBox prefHeight="360.0" prefWidth="170.0">
                      <children>
-                        <ImageView fitHeight="150.0" fitWidth="169.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../../../images/kangaroo.jpg" />
-                           </image>
-                           <effect>
-                              <BoxBlur />
-                           </effect>
-                        </ImageView>
-                        <ImageView fitHeight="150.0" fitWidth="169.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../../../images/horse.jpg" />
-                           </image>
-                        </ImageView>
-                        <ImageView fitHeight="150.0" fitWidth="169.0" layoutX="10.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../../../images/monkey.jpg" />
-                           </image>
-                        </ImageView>
-                        <ImageView fitHeight="150.0" fitWidth="169.0" layoutX="10.0" layoutY="243.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../../../images/Seahorse.jpg" />
-                           </image>
-                        </ImageView>
+                        <Button fx:id="imgPreview1Button" mnemonicParsing="false" onAction="#setDisplayedImage">
+                           <graphic>
+                              <ImageView fx:id="imgPreview1" fitHeight="150.0" fitWidth="169.0" pickOnBounds="true" preserveRatio="true" />
+                           </graphic>
+                        </Button>
+                        <Button fx:id="imgPreview2Button" mnemonicParsing="false" onAction="#setDisplayedImage">
+                           <graphic>
+                              <ImageView fx:id="imgPreview2" fitHeight="150.0" fitWidth="169.0" pickOnBounds="true" preserveRatio="true" />
+                           </graphic>
+                        </Button>
+                        <Button fx:id="imgPreview3Button" mnemonicParsing="false" onAction="#setDisplayedImage">
+                           <graphic>
+                              <ImageView fx:id="imgPreview3" fitHeight="150.0" fitWidth="169.0" pickOnBounds="true" preserveRatio="true" />
+                           </graphic>
+                        </Button>
+                        <Button fx:id="imgPreview4Button" mnemonicParsing="false" onAction="#setDisplayedImage">
+                           <graphic>
+                              <ImageView fx:id="imgPreview4" fitHeight="150.0" fitWidth="169.0" pickOnBounds="true" preserveRatio="true" />
+                           </graphic>
+                        </Button>
+                        <Button fx:id="imgPreview5Button" layoutX="10.0" layoutY="380.0" mnemonicParsing="false" onAction="#setDisplayedImage">
+                           <graphic>
+                              <ImageView fx:id="imgPreview5" fitHeight="150.0" fitWidth="169.0" pickOnBounds="true" preserveRatio="true" />
+                           </graphic>
+                        </Button>
                         <Button mnemonicParsing="false" prefHeight="29.0" prefWidth="184.0" text="Upload" textAlignment="CENTER">
                            <font>
                               <Font name="Geneva" size="14.0" />
@@ -62,20 +61,16 @@
             </ScrollPane>
          </children>
       </VBox>
-      <Pane prefHeight="400.0" prefWidth="426.0" style="-fx-background-color: TAN;">
+      <Pane prefHeight="600.0" prefWidth="831.0" style="-fx-background-color: TAN;">
          <children>
-            <ImageView id="displayImage" fx:id="displayImage" fitHeight="279.0" fitWidth="416.0" layoutY="51.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../../images/kangaroo.jpg" />
-               </image>
-            </ImageView>
-            <Button fx:id="prevButton" layoutX="42.0" layoutY="337.0" mnemonicParsing="false" text="Prev" textAlignment="CENTER">
+            <ImageView id="displayImage" fx:id="displayImage" fitHeight="545.0" fitWidth="903.0" layoutY="51.0" pickOnBounds="true" preserveRatio="true" />
+            <Button fx:id="prevButton" layoutX="547.0" layoutY="15.0" mnemonicParsing="false" text="Prev" textAlignment="CENTER">
                <font>
                   <Font name="Georgia" size="13.0" />
                </font>
             </Button>
-            <Button fx:id="nextButton" layoutX="320.0" layoutY="337.0" mnemonicParsing="false" text="Next" textAlignment="CENTER" />
-            <MenuButton layoutX="290.0" layoutY="14.0" mnemonicParsing="false" text="Image Setting">
+            <Button fx:id="nextButton" layoutX="612.0" layoutY="14.0" mnemonicParsing="false" text="Next" textAlignment="CENTER" />
+            <MenuButton layoutX="687.0" layoutY="15.0" mnemonicParsing="false" text="Image Setting">
               <items>
                 <MenuItem mnemonicParsing="false" text="Delete" />
                 <MenuItem mnemonicParsing="false" text="Add Text" />
@@ -85,7 +80,7 @@
                   <Font name="Georgia" size="13.0" />
                </font>
             </MenuButton>
-            <Label layoutX="23.0" layoutY="18.0" text="kangaroo.jpg">
+            <Label fx:id="fileName" layoutX="23.0" layoutY="18.0" text="kangaroo.jpg">
                <font>
                   <Font name="Georgia" size="14.0" />
                </font>

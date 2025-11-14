@@ -11,7 +11,7 @@ public class AnimalGalleryApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(AnimalGalleryApplication.class.getResource("animal-gallery-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
+        Scene scene = new Scene(fxmlLoader.load(), 1000, 600);
         stage.setTitle("Animal Gallery");
         stage.setScene(scene);
         stage.show();
