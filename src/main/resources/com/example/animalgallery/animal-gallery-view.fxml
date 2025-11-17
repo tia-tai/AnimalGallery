@@ -25,32 +25,36 @@
                <content>
                   <VBox prefHeight="360.0" prefWidth="170.0">
                      <children>
-                        <Button fx:id="imgPreview1Button" mnemonicParsing="false" onAction="#setDisplayedImage">
-                           <graphic>
-                              <ImageView fx:id="imgPreview1" fitHeight="150.0" fitWidth="169.0" pickOnBounds="true" preserveRatio="true" />
-                           </graphic>
-                        </Button>
-                        <Button fx:id="imgPreview2Button" mnemonicParsing="false" onAction="#setDisplayedImage">
-                           <graphic>
-                              <ImageView fx:id="imgPreview2" fitHeight="150.0" fitWidth="169.0" pickOnBounds="true" preserveRatio="true" />
-                           </graphic>
-                        </Button>
-                        <Button fx:id="imgPreview3Button" mnemonicParsing="false" onAction="#setDisplayedImage">
-                           <graphic>
-                              <ImageView fx:id="imgPreview3" fitHeight="150.0" fitWidth="169.0" pickOnBounds="true" preserveRatio="true" />
-                           </graphic>
-                        </Button>
-                        <Button fx:id="imgPreview4Button" mnemonicParsing="false" onAction="#setDisplayedImage">
-                           <graphic>
-                              <ImageView fx:id="imgPreview4" fitHeight="150.0" fitWidth="169.0" pickOnBounds="true" preserveRatio="true" />
-                           </graphic>
-                        </Button>
-                        <Button fx:id="imgPreview5Button" layoutX="10.0" layoutY="380.0" mnemonicParsing="false" onAction="#setDisplayedImage">
-                           <graphic>
-                              <ImageView fx:id="imgPreview5" fitHeight="150.0" fitWidth="169.0" pickOnBounds="true" preserveRatio="true" />
-                           </graphic>
-                        </Button>
-                        <Button mnemonicParsing="false" prefHeight="29.0" prefWidth="184.0" text="Upload" textAlignment="CENTER">
+                        <VBox fx:id="imagePreviewCollection" prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Button fx:id="imgPreview1Button" mnemonicParsing="false" onAction="#setDisplayedImage">
+                                 <graphic>
+                                    <ImageView fx:id="imgPreview1" fitHeight="150.0" fitWidth="169.0" pickOnBounds="true" preserveRatio="true" />
+                                 </graphic>
+                              </Button>
+                              <Button fx:id="imgPreview2Button" mnemonicParsing="false" onAction="#setDisplayedImage">
+                                 <graphic>
+                                    <ImageView fx:id="imgPreview2" fitHeight="150.0" fitWidth="169.0" pickOnBounds="true" preserveRatio="true" />
+                                 </graphic>
+                              </Button>
+                              <Button fx:id="imgPreview3Button" mnemonicParsing="false" onAction="#setDisplayedImage">
+                                 <graphic>
+                                    <ImageView fx:id="imgPreview3" fitHeight="150.0" fitWidth="169.0" pickOnBounds="true" preserveRatio="true" />
+                                 </graphic>
+                              </Button>
+                              <Button fx:id="imgPreview4Button" mnemonicParsing="false" onAction="#setDisplayedImage">
+                                 <graphic>
+                                    <ImageView fx:id="imgPreview4" fitHeight="150.0" fitWidth="169.0" pickOnBounds="true" preserveRatio="true" />
+                                 </graphic>
+                              </Button>
+                              <Button fx:id="imgPreview5Button" mnemonicParsing="false" onAction="#setDisplayedImage">
+                                 <graphic>
+                                    <ImageView fx:id="imgPreview5" fitHeight="150.0" fitWidth="169.0" pickOnBounds="true" preserveRatio="true" />
+                                 </graphic>
+                              </Button>
+                           </children>
+                        </VBox>
+                        <Button fx:id="uploadButton" mnemonicParsing="false" onAction="#upload" prefHeight="29.0" prefWidth="184.0" text="Upload" textAlignment="CENTER">
                            <font>
                               <Font name="Geneva" size="14.0" />
                            </font>
@@ -64,12 +68,12 @@
       <Pane prefHeight="600.0" prefWidth="831.0" style="-fx-background-color: TAN;">
          <children>
             <ImageView id="displayImage" fx:id="displayImage" fitHeight="545.0" fitWidth="903.0" layoutY="51.0" pickOnBounds="true" preserveRatio="true" />
-            <Button fx:id="prevButton" layoutX="547.0" layoutY="15.0" mnemonicParsing="false" text="Prev" textAlignment="CENTER">
+            <Button fx:id="prevButton" layoutX="547.0" layoutY="15.0" mnemonicParsing="false" onAction="#previousImg" text="Prev" textAlignment="CENTER">
                <font>
                   <Font name="Georgia" size="13.0" />
                </font>
             </Button>
-            <Button fx:id="nextButton" layoutX="612.0" layoutY="14.0" mnemonicParsing="false" text="Next" textAlignment="CENTER" />
+            <Button fx:id="nextButton" layoutX="612.0" layoutY="14.0" mnemonicParsing="false" onAction="#nextImg" text="Next" textAlignment="CENTER" />
             <MenuButton layoutX="687.0" layoutY="15.0" mnemonicParsing="false" text="Image Setting">
               <items>
                 <MenuItem mnemonicParsing="false" text="Delete" />
