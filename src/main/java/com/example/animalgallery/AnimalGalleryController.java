@@ -117,39 +117,19 @@ public class AnimalGalleryController {
         currentImage = 1;
     }
 
-    public void setDisplayedImage(ActionEvent event) {
+    public void setDisplayedImage(ActionEvent event) throws Exception {
         // change it so that it matches with the button in the array list that
         // is being clicked and then match that with the image that is suppose
         // to be displayed.
 
         Button sourceButton = (Button) event.getSource();
 
-        if (sourceButton == imgPreview1Button) {
-            System.out.println("Button 1 clicked");
-            displayImage.setImage(img1);
-            fileName.setText(imgFile1.getName());
-            currentImage = 1;
-        } else if (sourceButton == imgPreview2Button) {
-            System.out.println("Button 2 clicked");
-            displayImage.setImage(img2);
-            fileName.setText(imgFile2.getName());
-            currentImage = 2;
-        } else if (sourceButton == imgPreview3Button) {
-            System.out.println("Button 3 clicked");
-            displayImage.setImage(img3);
-            fileName.setText(imgFile3.getName());
-            currentImage = 3;
-        } else if (sourceButton == imgPreview4Button) {
-            System.out.println("Button 4 clicked");
-            displayImage.setImage(img4);
-            fileName.setText(imgFile4.getName());
-            currentImage = 4;
-        } else if (sourceButton == imgPreview5Button) {
-            System.out.println("Button 5 clicked");
-            displayImage.setImage(img5);
-            fileName.setText(imgFile5.getName());
-            currentImage = 5;
-        }
+        currentImage = imageButtons.indexOf(sourceButton) + 1;
+        File imgFile = imageFiles.get(currentImage-1);
+        FileInputStream imgInput = new FileInputStream(imgFile);
+        Image img = new Image(imgInput);
+        displayImage.setImage(img);
+        fileName.setText(imgFile.getName());
         for (ImageView imagePreview : imageViews) {
             if (imageViews.indexOf(imagePreview) + 1 == currentImage) {
                 imagePreview.setEffect(blurEffect);
@@ -205,7 +185,7 @@ public class AnimalGalleryController {
         uploadButton.setDisable(true);
         fileChooser.setTitle("Open Resource File");
         fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif")
+                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg")
         );
         selectedFile = fileChooser.showOpenDialog(null);
         if (selectedFile != null) {
@@ -217,7 +197,13 @@ public class AnimalGalleryController {
             imgPreview.setFitHeight(150);
             imgPreview.setFitWidth(169);
             Button imgPreviewButton = new Button("", imgPreview);
-            imgPreviewButton.setOnAction(this::setDisplayedImage);
+            imgPreviewButton.setOnAction(actionEvent -> {
+                try {
+                    setDisplayedImage(actionEvent);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            });
 
             imageViews.add(imgPreview);
             imageButtons.add(imgPreviewButton);
