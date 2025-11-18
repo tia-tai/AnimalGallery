@@ -1,18 +1,16 @@
 package com.example.animalgallery;
 
 import javafx.event.ActionEvent;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 public class AnimalGalleryController {
@@ -34,9 +32,22 @@ public class AnimalGalleryController {
 
     public Button uploadButton;
 
+    public Pane addTextPane;
+    public TextArea textToAdd;
+    public Button textCancelButton;
+    public Button textSubmitButton;
+
     public Label fileName;
+    public Label imgText;
 
     public VBox imagePreviewCollection;
+
+    public MenuButton imgMenu;
+    public MenuItem deleteMenuButton;
+    public MenuItem addTextMenuButton;
+    public MenuItem detailMenuButton;
+
+    public ColorPicker textColor;
 
     private File imgFile1;
     private File imgFile2;
@@ -118,10 +129,6 @@ public class AnimalGalleryController {
     }
 
     public void setDisplayedImage(ActionEvent event) throws Exception {
-        // change it so that it matches with the button in the array list that
-        // is being clicked and then match that with the image that is suppose
-        // to be displayed.
-
         Button sourceButton = (Button) event.getSource();
 
         currentImage = imageButtons.indexOf(sourceButton) + 1;
@@ -211,5 +218,35 @@ public class AnimalGalleryController {
             imagePreviewCollection.getChildren().add(imgPreviewButton);
         }
         uploadButton.setDisable(false);
+    }
+
+    public void delete () throws Exception {
+        Button imgPreviewButton = imageButtons.get(currentImage-1);
+        ImageView imgPreview = imageViews.get(currentImage-1);
+        File imgFile = imageFiles.get(currentImage-1);
+
+        imageViews.remove(imgPreview);
+        imageFiles.remove(imgFile);
+        imageButtons.remove(imgPreviewButton);
+        imagePreviewCollection.getChildren().remove(imgPreviewButton);
+
+        currentImage = 1;
+        File imgFile2 = imageFiles.getFirst();
+        FileInputStream imgInput2 = new FileInputStream(imgFile2);
+        Image img2 = new Image(imgInput2);
+        displayImage.setImage(img2);
+        fileName.setText(imgFile2.getName());
+        for (ImageView imagePreview2 : imageViews) {
+            if (imageViews.indexOf(imagePreview2) + 1 == currentImage) {
+                imagePreview2.setEffect(blurEffect);
+            } else {
+                imagePreview2.setEffect(null);
+            }
+        }
+    }
+
+    public void addText () {
+        addTextPane.setDisable(false);
+        addTextPane.setVisible(true);
     }
 }
