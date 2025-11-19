@@ -37,7 +37,6 @@ public class AnimalGalleryController {
     public Button textCancelButton;
     public Button textSubmitButton;
 
-    public Label fileName;
     public Label imgText;
 
     public VBox imagePreviewCollection;
@@ -67,15 +66,25 @@ public class AnimalGalleryController {
     private Image img4;
     private Image img5;
 
+    public Pane detailPane;
+    public Label detailName;
+    public Label detailType;
+    public Label detailSize;
+    public Label detailDimensions;
+    public Button detailCloseButton;
+
     private ArrayList<File> imageFiles = new ArrayList<File>();
     private ArrayList<ImageView> imageViews = new ArrayList<ImageView>();
+    private ArrayList<Image> images = new ArrayList<Image>();
     private ArrayList<Button> imageButtons = new ArrayList<Button>();
-    private int currentImage;
+    private int currentImage = 1;
 
     private GaussianBlur blurEffect = new GaussianBlur(10);
 
     private FileChooser fileChooser = new FileChooser();
     private File selectedFile;
+
+    public ChoiceBox<String> imageChoiceBox;
 
     public void initialize() throws Exception {
         imgFile1 = new File("src/main/images/horse.jpg");
@@ -122,8 +131,18 @@ public class AnimalGalleryController {
         imageButtons.add(imgPreview4Button);
         imageButtons.add(imgPreview5Button);
 
+        images.add(img1);
+        images.add(img2);
+        images.add(img3);
+        images.add(img4);
+        images.add(img5);
+
+        for (File imgFile : imageFiles) {
+            imageChoiceBox.getItems().add(imgFile.getName());
+        }
+
         displayImage.setImage(img1);
-        fileName.setText(imgFile1.getName());
+        imageChoiceBox.setValue(imgFile1.getName());
         imgPreview1.setEffect(blurEffect);
         currentImage = 1;
     }
@@ -131,12 +150,12 @@ public class AnimalGalleryController {
     public void setDisplayedImage(ActionEvent event) throws Exception {
         Button sourceButton = (Button) event.getSource();
 
+        imgText.setText("");
+
         currentImage = imageButtons.indexOf(sourceButton) + 1;
         File imgFile = imageFiles.get(currentImage-1);
-        FileInputStream imgInput = new FileInputStream(imgFile);
-        Image img = new Image(imgInput);
-        displayImage.setImage(img);
-        fileName.setText(imgFile.getName());
+        displayImage.setImage(images.get(currentImage-1));
+        imageChoiceBox.setValue(imgFile.getName());
         for (ImageView imagePreview : imageViews) {
             if (imageViews.indexOf(imagePreview) + 1 == currentImage) {
                 imagePreview.setEffect(blurEffect);
@@ -147,16 +166,15 @@ public class AnimalGalleryController {
     }
 
     public void nextImg () throws Exception {
+        imgText.setText("");
         if (currentImage < imageFiles.size()) {
             currentImage++;
         } else {
             currentImage = 1;
         }
         File imgFile = imageFiles.get(currentImage-1);
-        FileInputStream imgInput = new FileInputStream(imgFile);
-        Image img = new Image(imgInput);
-        displayImage.setImage(img);
-        fileName.setText(imgFile.getName());
+        displayImage.setImage(images.get(currentImage-1));
+        imageChoiceBox.setValue(imgFile.getName());
 
         for (ImageView imagePreview : imageViews) {
             if (imageViews.indexOf(imagePreview) + 1 == currentImage) {
@@ -168,16 +186,15 @@ public class AnimalGalleryController {
     }
 
     public void previousImg () throws Exception {
+        imgText.setText("");
         if (currentImage > 1) {
             currentImage--;
         } else {
             currentImage = imageFiles.size();
         }
         File imgFile = imageFiles.get(currentImage-1);
-        FileInputStream imgInput = new FileInputStream(imgFile);
-        Image img = new Image(imgInput);
-        displayImage.setImage(img);
-        fileName.setText(imgFile.getName());
+        displayImage.setImage(images.get(currentImage-1));
+        imageChoiceBox.setValue(imgFile.getName());
 
         for (ImageView imagePreview : imageViews) {
             if (imageViews.indexOf(imagePreview) + 1 == currentImage) {
@@ -197,6 +214,7 @@ public class AnimalGalleryController {
         selectedFile = fileChooser.showOpenDialog(null);
         if (selectedFile != null) {
             imageFiles.add(selectedFile);
+            imageChoiceBox.getItems().add(selectedFile.getName());
             FileInputStream imgInput = new FileInputStream(selectedFile);
             Image img = new Image(imgInput);
             ImageView imgPreview = new ImageView(img);
@@ -214,6 +232,7 @@ public class AnimalGalleryController {
 
             imageViews.add(imgPreview);
             imageButtons.add(imgPreviewButton);
+            images.add(img);
 
             imagePreviewCollection.getChildren().add(imgPreviewButton);
         }
@@ -221,21 +240,23 @@ public class AnimalGalleryController {
     }
 
     public void delete () throws Exception {
+        imgText.setText("");
         Button imgPreviewButton = imageButtons.get(currentImage-1);
         ImageView imgPreview = imageViews.get(currentImage-1);
         File imgFile = imageFiles.get(currentImage-1);
+        Image image = images.get(currentImage-1);
 
         imageViews.remove(imgPreview);
         imageFiles.remove(imgFile);
         imageButtons.remove(imgPreviewButton);
+        images.remove(image);
         imagePreviewCollection.getChildren().remove(imgPreviewButton);
+        imageChoiceBox.getItems().remove(imgFile.getName());
 
         currentImage = 1;
         File imgFile2 = imageFiles.getFirst();
-        FileInputStream imgInput2 = new FileInputStream(imgFile2);
-        Image img2 = new Image(imgInput2);
-        displayImage.setImage(img2);
-        fileName.setText(imgFile2.getName());
+        displayImage.setImage(images.get(currentImage-1));
+        imageChoiceBox.setValue(imgFile2.getName());
         for (ImageView imagePreview2 : imageViews) {
             if (imageViews.indexOf(imagePreview2) + 1 == currentImage) {
                 imagePreview2.setEffect(blurEffect);
@@ -248,5 +269,82 @@ public class AnimalGalleryController {
     public void addText () {
         addTextPane.setDisable(false);
         addTextPane.setVisible(true);
+        addTextPane.toFront();
+        textToAdd.clear();
+
+        displayImage.setEffect(blurEffect);
+    }
+
+    public void cancelAddText () {
+        addTextPane.setDisable(true);
+        addTextPane.setVisible(false);
+        textToAdd.clear();
+
+        displayImage.setEffect(null);
+    }
+
+    public void submitText () {
+        String text = textToAdd.getText();
+        imgText.setText(text);
+        imgText.setTextFill(textColor.getValue());
+        imgText.toFront();
+
+        cancelAddText();
+    }
+
+    public void changeTextColor () {
+        imgText.setTextFill(textColor.getValue());
+    }
+
+    public void showDetails() throws Exception {
+        File imgFile = imageFiles.get(currentImage - 1);
+        Image img = displayImage.getImage();
+        String fileName = imgFile.getName();
+
+        detailName.setText(fileName);
+
+        String fileType = fileName.substring(fileName.lastIndexOf(".") + 1).toUpperCase();
+        detailType.setText(fileType);
+
+        double fileSizeInKB = imgFile.length() / 1024.0;
+        detailSize.setText(fileSizeInKB + " KB");
+
+        int width = (int) img.getWidth();
+        int height = (int) img.getHeight();
+        detailDimensions.setText(width + " x " + height + " pixels");
+
+        detailPane.setDisable(false);
+        detailPane.setVisible(true);
+        detailPane.toFront();
+
+        displayImage.setEffect(blurEffect);
+    }
+
+    public void closeDetailPane() {
+        detailPane.setDisable(true);
+        detailPane.setVisible(false);
+
+        displayImage.setEffect(null);
+    }
+
+    public void chooseImage() throws Exception {
+        String name = imageChoiceBox.getValue();
+
+        for (File imageFile : imageFiles) {
+            if (imageFile.getName().equals(name)) {
+                currentImage = imageFiles.indexOf(imageFile) + 1;
+                break;
+            }
+        }
+
+        displayImage.setImage(images.get(currentImage-1));
+
+        for (ImageView imagePreview : imageViews) {
+            if (imageViews.indexOf(imagePreview) + 1 == currentImage) {
+                imagePreview.setEffect(blurEffect);
+            } else {
+                imagePreview.setEffect(null);
+            }
+        }
     }
 }
