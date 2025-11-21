@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.ColorPicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuButton?>
@@ -13,18 +14,17 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
-<?import javafx.scene.control.ChoiceBox?>
 
 <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.animalgallery.AnimalGalleryController">
    <children>
-      <VBox prefHeight="400.0" prefWidth="183.0" style="-fx-background-color: #e1bf92;">
+      <VBox prefHeight="400.0" prefWidth="183.0" style="-fx-background-color: #28282B;">
          <children>
-            <Text fill="#0c90a1" strokeType="OUTSIDE" strokeWidth="0.0" text="Animal Gallery" textAlignment="CENTER" wrappingWidth="183.076171875">
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Animal Gallery" textAlignment="CENTER" wrappingWidth="183.076171875">
                <font>
                   <Font name="Noteworthy Bold" size="23.0" />
                </font>
             </Text>
-            <ScrollPane hbarPolicy="NEVER" hmax="0.0" prefHeight="573.0" prefWidth="184.0" vbarPolicy="ALWAYS" vmax="200.0">
+            <ScrollPane hbarPolicy="NEVER" hmax="0.0" prefHeight="573.0" prefWidth="184.0" vbarPolicy="ALWAYS" vmax="100.0">
                <content>
                   <VBox prefHeight="360.0" prefWidth="170.0">
                      <children>
@@ -68,7 +68,7 @@
             </ScrollPane>
          </children>
       </VBox>
-      <Pane prefHeight="600.0" prefWidth="831.0" style="-fx-background-color: TAN;">
+      <Pane prefHeight="600.0" prefWidth="831.0" style="-fx-background-color: #343434;">
          <children>
             <Pane fx:id="addTextPane" disable="true" layoutX="262.0" layoutY="134.0" prefHeight="270.0" prefWidth="334.0" style="-fx-background-color: white;" visible="false">
                <children>
@@ -79,13 +79,13 @@
             </Pane>
              <Pane fx:id="detailPane" disable="true" layoutX="262.0" layoutY="134.0" prefHeight="350.0" prefWidth="400.0" style="-fx-background-color: white;" visible="false">
                  <children>
-                     <Label text="Details" layoutX="0" layoutY="10.0" prefHeight="40.0" prefWidth="400.0" alignment="CENTER">
+                     <Label alignment="CENTER" layoutX="0" layoutY="10.0" prefHeight="40.0" prefWidth="400.0" text="Details">
                          <font>
                              <Font name="System Bold" size="24.0" />
                          </font>
                      </Label>
 
-                     <Label text="Name:" layoutX="30.0" layoutY="70.0">
+                     <Label layoutX="30.0" layoutY="70.0" text="Name:">
                          <font>
                              <Font name="System Bold" size="16.0" />
                          </font>
@@ -96,7 +96,7 @@
                          </font>
                      </Label>
 
-                     <Label text="Type:" layoutX="30.0" layoutY="110.0">
+                     <Label layoutX="30.0" layoutY="110.0" text="Type:">
                          <font>
                              <Font name="System Bold" size="16.0" />
                          </font>
@@ -107,7 +107,7 @@
                          </font>
                      </Label>
 
-                     <Label text="Size:" layoutX="30.0" layoutY="150.0">
+                     <Label layoutX="30.0" layoutY="150.0" text="Size:">
                          <font>
                              <Font name="System Bold" size="16.0" />
                          </font>
@@ -118,7 +118,7 @@
                          </font>
                      </Label>
 
-                     <Label text="Dimensions:" layoutX="30.0" layoutY="190.0">
+                     <Label layoutX="30.0" layoutY="190.0" text="Dimensions:">
                          <font>
                              <Font name="System Bold" size="16.0" />
                          </font>
@@ -136,7 +136,7 @@
                      </Button>
                  </children>
              </Pane>
-             <Label fx:id="imgText" layoutX="0" layoutY="104.0" prefHeight="70.0" prefWidth="831.0" alignment="CENTER" wrapText="true">
+             <Label fx:id="imgText" alignment="CENTER" layoutX="0" layoutY="104.0" prefHeight="70.0" prefWidth="831.0" wrapText="true">
                  <font>
                      <Font name="System Bold" size="24.0" />
                  </font>
@@ -158,7 +158,7 @@
                   <Font name="Georgia" size="13.0" />
                </font>
             </MenuButton>
-             <ChoiceBox fx:id="imageChoiceBox" layoutX="23.0" layoutY="14.0" prefWidth="150.0" onAction="#chooseImage" />
+             <ChoiceBox fx:id="imageChoiceBox" layoutX="23.0" layoutY="14.0" onAction="#chooseImage" prefWidth="150.0" />
             <ColorPicker fx:id="textColor" layoutX="663.0" layoutY="14.0" onAction="#changeTextColor" />
          </children>
       </Pane>
